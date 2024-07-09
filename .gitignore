@@ -1,0 +1,13 @@
+# Java/Spring Boot specific
+.mvn/
+target/
+.gradle/
+build/
+*.log
+
+# Android specific
+/build/
+/local.properties
+/.idea/
+/.gradle/
+/captures/
