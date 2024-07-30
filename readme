@@ -1,0 +1,11 @@
+After syncing up the project:
+
+1)Please refer this video to setup with react native on your local machines:https://youtu.be/YysKbNk1tj0?si=Ad2clw0nW6EOjqw6
+
+2)if you come across any doubts at any stage of setting up react native please  contact me personally 
+
+3)Then make separate branches if you haven't yet and make sure to develop on the app on your separate branches and make sure to check it twice and thrice before committing the changes in the main branch .
+
+4)Always remember you have to type in the terminal :'npm start ' to run the project.
+
+5)As for the AVD ,if you do wanna develop and ee the app progress in virtual device then ,use Pixel 4 API 35 emulator 
