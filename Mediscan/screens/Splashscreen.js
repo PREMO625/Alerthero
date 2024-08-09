@@ -4,7 +4,7 @@ import * as SplashScreen from 'expo-splash-screen';
 
 SplashScreen.preventAutoHideAsync();
 
-const SplashScreenComponent = () => {
+const SplashScreenComponent = ({ navigation }) => {
     const [appIsReady, setAppIsReady] = useState(false);
 
     useEffect(() => {
@@ -25,6 +25,9 @@ const SplashScreenComponent = () => {
     const onLayoutRootView = useCallback(async () => {
         if (appIsReady) {
             await SplashScreen.hideAsync();
+            setTimeout(() => {
+                navigation.replace('Onboard'); // Navigate to Onboard after 5 seconds
+            }, 2000); // 5 seconds delay
         }
     }, [appIsReady]);
 
