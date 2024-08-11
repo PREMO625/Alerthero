@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, Image, StyleSheet, ScrollView } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, Image, StyleSheet, ScrollView, ImageBackground } from 'react-native';
 import CustomButton from '../components/custombutton';
 import FModalWin from '../components/fmodalwin'; // Import the modal window component
 
@@ -56,76 +56,84 @@ const LogInScreen = ({ navigation }) => {
   };
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
-      <Text style={styles.title}>Welcome back to Mediscan</Text>
-      <Text style={styles.subtitle}>Access your secure medical profile now.</Text>
+    <ImageBackground 
+      source={require('../assets/mainbg.jpg')} 
+      style={styles.background}
+    >
+      <ScrollView contentContainerStyle={styles.container}>
+        <Text style={styles.title}>Welcome back to Mediscan</Text>
+        <Text style={styles.subtitle}>Access your secure medical profile now.</Text>
 
-      <View style={styles.iconContainer}>
-        <TouchableOpacity style={styles.iconButton}>
-          <Image source={require('../assets/google-icon.png')} style={styles.icon} />
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.iconButton}>
-          <Image source={require('../assets/X-icon.png')} style={styles.icon} />
-        </TouchableOpacity>
-      </View>
+        <View style={styles.iconContainer}>
+          <TouchableOpacity style={styles.iconButton}>
+            <Image source={require('../assets/google-icon.png')} style={styles.icon} />
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.iconButton}>
+            <Image source={require('../assets/X-icon.png')} style={styles.icon} />
+          </TouchableOpacity>
+        </View>
 
-      <Text style={styles.orText}>or</Text>
+        <Text style={styles.orText}>or</Text>
 
-      <TextInput
-        style={[styles.input, emailError ? styles.inputError : null]}
-        placeholder="Email"
-        placeholderTextColor="#888"
-        value={email}
-        onChangeText={handleEmailChange}
-      />
-      {emailError ? <Text style={styles.errorText}>{emailError}</Text> : null}
-
-      <View style={styles.passwordContainer}>
         <TextInput
-          style={styles.input}
-          placeholder="Password"
+          style={[styles.input, emailError ? styles.inputError : null]}
+          placeholder="Email"
           placeholderTextColor="#888"
-          secureTextEntry={!showPassword}
-          value={password}
-          onChangeText={setPassword}
+          value={email}
+          onChangeText={handleEmailChange}
         />
-        <TouchableOpacity
-          style={styles.toggleButton}
-          onPress={() => setShowPassword(!showPassword)}
-        >
-          <Text style={styles.toggleButtonText}>{showPassword ? 'Hide' : 'Show'}</Text>
+        {emailError ? <Text style={styles.errorText}>{emailError}</Text> : null}
+
+        <View style={styles.passwordContainer}>
+          <TextInput
+            style={styles.input}
+            placeholder="Password"
+            placeholderTextColor="#888"
+            secureTextEntry={!showPassword}
+            value={password}
+            onChangeText={setPassword}
+          />
+          <TouchableOpacity
+            style={styles.toggleButton}
+            onPress={() => setShowPassword(!showPassword)}
+          >
+            <Text style={styles.toggleButtonText}>{showPassword ? 'Hide' : 'Show'}</Text>
+          </TouchableOpacity>
+        </View>
+
+        <CustomButton title="Log In" onPress={() => { /* Handle log-in */ }} />
+
+        <TouchableOpacity onPress={handleForgotPassword}>
+          <Text style={styles.forgotPasswordText}>Forgot Password?</Text>
         </TouchableOpacity>
-      </View>
 
-      <CustomButton title="Log In" onPress={() => { /* Handle log-in */ }} />
-
-      <TouchableOpacity onPress={handleForgotPassword}>
-        <Text style={styles.forgotPasswordText}>Forgot Password?</Text>
-      </TouchableOpacity>
-
-      {/* Modal for Forgot Password */}
-      <FModalWin
-        visible={showForgotPasswordModal}
-        onClose={handleCloseModal}
-        onContinue={handleContinue}
-        modalStep={modalStep}
-        email={email}
-        setVerificationCode={setVerificationCode}
-        verificationCode={verificationCode}
-        newPassword={newPassword}
-        setNewPassword={setNewPassword}
-        confirmPassword={confirmPassword}
-        setConfirmPassword={setConfirmPassword}
-      />
-    </ScrollView>
+        {/* Modal for Forgot Password */}
+        <FModalWin
+          visible={showForgotPasswordModal}
+          onClose={handleCloseModal}
+          onContinue={handleContinue}
+          modalStep={modalStep}
+          email={email}
+          setVerificationCode={setVerificationCode}
+          verificationCode={verificationCode}
+          newPassword={newPassword}
+          setNewPassword={setNewPassword}
+          confirmPassword={confirmPassword}
+          setConfirmPassword={setConfirmPassword}
+        />
+      </ScrollView>
+    </ImageBackground>
   );
 };
 
 const styles = StyleSheet.create({
+  background: {
+    flex: 1,
+    resizeMode: 'cover', // or 'stretch'
+  },
   container: {
     flexGrow: 1,
     justifyContent: 'center',
-    backgroundColor: '#FFFFFF',
     padding: 20,
   },
   title: {

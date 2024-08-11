@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, ActivityIndicator, StyleSheet } from 'react-native';
+import React, { useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { auth } from './firebaseConfig';
@@ -14,8 +13,6 @@ import Homepage from './screens/homepage';
 const Stack = createStackNavigator();
 
 const AuthCheck = ({ navigation }) => {
-  const [message, setMessage] = useState('Checking authentication...');
-
   useEffect(() => {
     const checkAuth = async () => {
       return new Promise((resolve) => {
@@ -28,23 +25,16 @@ const AuthCheck = ({ navigation }) => {
 
     checkAuth().then((user) => {
       if (user) {
-        setMessage('Welcome back! Navigating to homepage...');
-        console.log('User is signed in');
-        setTimeout(() => navigation.replace('homepage'), 3000); // 3-second delay
+        console.log('User is signed in. Navigating to homepage...');
+        setTimeout(() => navigation.replace('homepage'), 0.1000); // 1-second delay
       } else {
-        setMessage('Please sign in or create an account');
-        console.log('No user signed in');
-        setTimeout(() => navigation.replace('onboard'), 1000); // 1-second delay
+        console.log('No user signed in. Navigating to onboard...');
+        setTimeout(() => navigation.replace('onboard'), 0.1000); // 1-second delay
       }
     });
   }, [navigation]);
 
-  return (
-    <View style={styles.messageContainer}>
-      <Text style={styles.message}>{message}</Text>
-      <ActivityIndicator size="large" color="#0000ff" />
-    </View>
-  );
+  return null; // Render nothing to avoid any UI during auth check
 };
 
 const App = () => {
@@ -85,20 +75,5 @@ const App = () => {
     </NavigationContainer>
   );
 };
-
-const styles = StyleSheet.create({
-  messageContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#fff',
-  },
-  message: {
-    fontSize: 18,
-    textAlign: 'center',
-    margin: 10,
-    color: '#333',
-  },
-});
 
 export default App;

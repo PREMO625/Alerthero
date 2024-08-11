@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, Image, StyleSheet, ScrollView } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, Image, StyleSheet, ScrollView, ImageBackground } from 'react-native';
 import CustomButton from '../components/custombutton';
 
 const SignInScreen = ({ navigation }) => {
@@ -49,79 +49,87 @@ const SignInScreen = ({ navigation }) => {
   };
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
-      <Text style={styles.title}>Create your Mediscan Account</Text>
-      <Text style={styles.subtitle}>Join Mediscan to securely store and share your medical information.</Text>
+    <ImageBackground 
+      source={require('../assets/mainbg.jpg')} 
+      style={styles.background}
+    >
+      <ScrollView contentContainerStyle={styles.container}>
+        <Text style={styles.title}>Create your Mediscan Account</Text>
+        <Text style={styles.subtitle}>Join Mediscan to securely store and share your medical information.</Text>
 
-      <Text style={styles.signInText}>Sign in using:</Text>
+        <Text style={styles.signInText}>Sign in using:</Text>
 
-      <View style={styles.iconContainer}>
-        <TouchableOpacity style={styles.iconButton}>
-          <Image source={require('../assets/google-icon.png')} style={styles.icon} />
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.iconButton}>
-          <Image source={require('../assets/X-icon.png')} style={styles.icon} />
-        </TouchableOpacity>
-      </View>
+        <View style={styles.iconContainer}>
+          <TouchableOpacity style={styles.iconButton}>
+            <Image source={require('../assets/google-icon.png')} style={styles.icon} />
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.iconButton}>
+            <Image source={require('../assets/X-icon.png')} style={styles.icon} />
+          </TouchableOpacity>
+        </View>
 
-      <TextInput
-        style={[styles.input, emailError ? styles.inputError : null]}
-        placeholder="Email"
-        placeholderTextColor="#888"
-        value={email}
-        onChangeText={handleEmailChange}
-      />
-      {emailError ? <Text style={styles.errorText}>{emailError}</Text> : null}
-
-      <View style={styles.passwordContainer}>
         <TextInput
-          style={styles.input}
-          placeholder="Password"
+          style={[styles.input, emailError ? styles.inputError : null]}
+          placeholder="Email"
           placeholderTextColor="#888"
-          secureTextEntry={!showPassword}
-          value={password}
-          onChangeText={handlePasswordChange}
+          value={email}
+          onChangeText={handleEmailChange}
         />
-        <TouchableOpacity
-          style={styles.toggleButton}
-          onPress={() => setShowPassword(!showPassword)}
-        >
-          <Text style={styles.toggleButtonText}>{showPassword ? 'Hide' : 'Show'}</Text>
+        {emailError ? <Text style={styles.errorText}>{emailError}</Text> : null}
+
+        <View style={styles.passwordContainer}>
+          <TextInput
+            style={styles.input}
+            placeholder="Password"
+            placeholderTextColor="#888"
+            secureTextEntry={!showPassword}
+            value={password}
+            onChangeText={handlePasswordChange}
+          />
+          <TouchableOpacity
+            style={styles.toggleButton}
+            onPress={() => setShowPassword(!showPassword)}
+          >
+            <Text style={styles.toggleButtonText}>{showPassword ? 'Hide' : 'Show'}</Text>
+          </TouchableOpacity>
+        </View>
+        {password ? <Text style={styles.passwordStrengthText}>Password Strength: {passwordStrength}</Text> : null}
+
+        <View style={styles.passwordContainer}>
+          <TextInput
+            style={styles.input}
+            placeholder="Confirm Password"
+            placeholderTextColor="#888"
+            secureTextEntry={!showPassword}
+            value={confirmPassword}
+            onChangeText={handleConfirmPasswordChange}
+          />
+          <TouchableOpacity
+            style={styles.toggleButton}
+            onPress={() => setShowPassword(!showPassword)}
+          >
+            <Text style={styles.toggleButtonText}>{showPassword ? 'Hide' : 'Show'}</Text>
+          </TouchableOpacity>
+        </View>
+
+        <CustomButton title="Sign Up" onPress={handleSignUp} />
+
+        <TouchableOpacity onPress={() => navigation.navigate('login')}>
+          <Text style={styles.loginText}>Already have an account? LOGIN</Text>
         </TouchableOpacity>
-      </View>
-      {password ? <Text style={styles.passwordStrengthText}>Password Strength: {passwordStrength}</Text> : null}
-
-      <View style={styles.passwordContainer}>
-        <TextInput
-          style={styles.input}
-          placeholder="Confirm Password"
-          placeholderTextColor="#888"
-          secureTextEntry={!showPassword}
-          value={confirmPassword}
-          onChangeText={handleConfirmPasswordChange}
-        />
-        <TouchableOpacity
-          style={styles.toggleButton}
-          onPress={() => setShowPassword(!showPassword)}
-        >
-          <Text style={styles.toggleButtonText}>{showPassword ? 'Hide' : 'Show'}</Text>
-        </TouchableOpacity>
-      </View>
-
-      <CustomButton title="Sign Up" onPress={handleSignUp} />
-
-      <TouchableOpacity onPress={() => navigation.navigate('login')}>
-        <Text style={styles.loginText}>Already have an account? LOGIN</Text>
-      </TouchableOpacity>
-    </ScrollView>
+      </ScrollView>
+    </ImageBackground>
   );
 };
 
 const styles = StyleSheet.create({
+  background: {
+    flex: 1,
+    resizeMode: 'cover', // or 'stretch'
+  },
   container: {
     flexGrow: 1,
     justifyContent: 'center',
-    backgroundColor: '#FFFFFF',
     padding: 20,
   },
   title: {

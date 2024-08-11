@@ -3,7 +3,6 @@ import { Image, View, StyleSheet } from 'react-native';
 import * as SplashScreen from 'expo-splash-screen';
 import { useNavigation } from '@react-navigation/native';
 
-// Prevent auto-hide of splash screen until we're ready
 SplashScreen.preventAutoHideAsync();
 
 const Splashscreen = () => {
@@ -13,8 +12,8 @@ const Splashscreen = () => {
   useEffect(() => {
     const prepare = async () => {
       try {
-        // Simulate a loading process
-        await new Promise(resolve => setTimeout(resolve, 3000)); // Display for at least 3 seconds
+        // Ensure the image is fully loaded before proceeding
+        await new Promise(resolve => setTimeout(resolve, 1000)); // Display for exactly 3 seconds
       } catch (e) {
         console.warn(e);
       } finally {
@@ -27,9 +26,8 @@ const Splashscreen = () => {
 
   const onLayoutRootView = useCallback(async () => {
     if (appIsReady) {
-      // Hide the splash screen
+      // Hide the splash screen and navigate only after the image is fully loaded
       await SplashScreen.hideAsync();
-      // Navigate to the AuthCheck screen
       navigation.replace('AuthCheck');
     }
   }, [appIsReady, navigation]);
@@ -43,6 +41,7 @@ const Splashscreen = () => {
       <Image
         source={require('../assets/Splashscreen.png')}
         style={styles.image}
+        onLoad={() => setAppIsReady(true)} // Trigger appIsReady when the image is loaded
         resizeMode="contain"
       />
     </View>
