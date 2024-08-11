@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, ImageBackground, StyleSheet } from 'react-native';
-import CustomButton from '../components/custombutton'; // Adjust the import path as needed
+import CustomButton from '../components/custombutton'; // Ensure this path is correct
 
 const OnboardScreen = ({ navigation }) => {
   return (
@@ -8,12 +8,12 @@ const OnboardScreen = ({ navigation }) => {
       <View style={styles.container}>
         <CustomButton
           title="Sign Up"
-          onPress={() => navigation.navigate('SignIn')}
+          onPress={() => navigation.navigate('signin')} // Ensure screen names match
         />
         <View style={styles.buttonSpacing} />
         <CustomButton
           title="Log In"
-          onPress={() => navigation.navigate('LogIn')}
+          onPress={() => navigation.navigate('login')} // Ensure screen names match
         />
       </View>
     </ImageBackground>

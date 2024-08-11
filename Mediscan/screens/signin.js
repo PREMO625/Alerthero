@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, Image, StyleSheet, ScrollView, Clipboard } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, Image, StyleSheet, ScrollView } from 'react-native';
 import CustomButton from '../components/custombutton';
 
 const SignInScreen = ({ navigation }) => {
@@ -37,6 +37,15 @@ const SignInScreen = ({ navigation }) => {
   const handlePasswordChange = (password) => {
     setPassword(password);
     setPasswordStrength(checkPasswordStrength(password));
+  };
+
+  const handleConfirmPasswordChange = (confirmPassword) => {
+    setConfirmPassword(confirmPassword);
+  };
+
+  const handleSignUp = () => {
+    // Implement sign-up logic here
+    console.log('Sign Up');
   };
 
   return (
@@ -89,7 +98,7 @@ const SignInScreen = ({ navigation }) => {
           placeholderTextColor="#888"
           secureTextEntry={!showPassword}
           value={confirmPassword}
-          onChangeText={setConfirmPassword}
+          onChangeText={handleConfirmPasswordChange}
         />
         <TouchableOpacity
           style={styles.toggleButton}
@@ -99,9 +108,9 @@ const SignInScreen = ({ navigation }) => {
         </TouchableOpacity>
       </View>
 
-      <CustomButton title="Sign Up" onPress={() => { /* Handle sign-up */ }} />
+      <CustomButton title="Sign Up" onPress={handleSignUp} />
 
-      <TouchableOpacity onPress={() => navigation.navigate('LogIn')}>
+      <TouchableOpacity onPress={() => navigation.navigate('login')}>
         <Text style={styles.loginText}>Already have an account? LOGIN</Text>
       </TouchableOpacity>
     </ScrollView>
